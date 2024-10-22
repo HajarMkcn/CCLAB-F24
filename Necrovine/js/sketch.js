@@ -2,8 +2,10 @@ let x = 0;
 let y = 0;
 
 function setup() {
-    let cnv=createCanvas(800,500);
+  
+  let cnv=createCanvas(800,500);
     cnv.parent("p5-canvas-container")
+  
   
   background(28, 28, 28);
 
@@ -90,31 +92,55 @@ function setup() {
 }
 
 function draw() {
-
+// console.log(mouseX,mouseY) 
   
   fill(105, 130, 140)
- strokeWeight(0)
-  triangle(364, 160, 436, 160, 400, 200)
- arc(400,143, 80, 80, 150, PI + QUARTER_PI,OPEN)
+  stroke(0, 255, 0);
+  strokeWeight(3);
   
-  strokeWeight(1)
- noFill()
-  stroke(255)
-   beginShape(); 
-   vertex(370, 125); 
-   bezierVertex(350, 50, 300, 150, 320, 180); 
-   endShape(); 
+  ellipse(400, 250, 60, 80); 
   
-   beginShape(); 
-   vertex(430, 125); 
-   bezierVertex(450, 50, 500, 150, 478, 180); 
-   endShape();
+  strokeWeight(2);
+  line(390, 210, 370, 180);  
+  line(410, 210, 430, 180); 
+
+  fill(255, 0, 0);
+  noStroke();
+  circle(370, 180, 10);  
+  circle(430, 180, 10); 
+
+  noFill();
+  stroke(0, 255, 0);
+  strokeWeight(3);
+  beginShape();
+  curveVertex(370, 300);
+  curveVertex(380, 320);
+  curveVertex(420, 320);
+  curveVertex(430, 300);
+  endShape();
   
-  noStroke()
-   fill(105, 130, 140)
-  triangle(400,200,360,260,440,260)
-  rect(360,260,80,80,4,4,4,4)
-  // arc(435,222, 75,75, 670, PI + QUARTER_PI, OPEN)
-  // arc(368,225, 75, 75, 670, PI + QUARTER_PI, OPEN)
+  line(370, 320, 350, 360); 
+  line(430, 320, 450, 360); 
+  
+  line(390, 350, 380, 400); 
+  line(410, 350, 420, 400); 
+  
+
+  
+    
+  
+  
+                 
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
 }
