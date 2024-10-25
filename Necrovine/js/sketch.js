@@ -1,10 +1,14 @@
+let angle=0;
 let x = 0;
 let y = 0;
+let z=0;
+let w=0;
+let xOffset = 0;
 
 function setup() {
   
   let cnv=createCanvas(800,500);
-    cnv.parent("p5-canvas-container")
+    // cnv.parent("p5-canvas-container")
   
   
   background(28, 28, 28);
@@ -92,55 +96,89 @@ function setup() {
 }
 
 function draw() {
-// console.log(mouseX,mouseY) 
+console.log(mouseX,mouseY) 
   
-  fill(105, 130, 140)
-  stroke(0, 255, 0);
-  strokeWeight(3);
+let floatOffset = sin(angle) * 10; 
+  angle += 0.05; 
+  push(); 
+  translate(0, floatOffset); 
+  drawCreature(); 
+  pop(); 
   
-  ellipse(400, 250, 60, 80); 
-  
-  strokeWeight(2);
-  line(390, 210, 370, 180);  
-  line(410, 210, 430, 180); 
+//   let x = noise(xOffset) * width; 
+//   let y = noise(xOffset + 100) * height; // Using an offset to get a different y value
 
-  fill(255, 0, 0);
-  noStroke();
-  circle(370, 180, 10);  
-  circle(430, 180, 10); 
-
-  noFill();
-  stroke(0, 255, 0);
-  strokeWeight(3);
-  beginShape();
-  curveVertex(370, 300);
-  curveVertex(380, 320);
-  curveVertex(420, 320);
-  curveVertex(430, 300);
-  endShape();
+//   ellipse(x, y, 1, 1); // Draw an ellipse that moves smoothly
   
-  line(370, 320, 350, 360); 
-  line(430, 320, 450, 360); 
-  
-  line(390, 350, 380, 400); 
-  line(410, 350, 420, 400); 
-  
-
-  
-    
-  
-  
-                 
-
-  
-  
-  
-  
-  
-  
-  
-  
+//   // Increment xOffset for new noise values
+//   xOffset += 0.002;
   
   
   
 }
+
+function drawCreature() {
+  
+  stroke(0, 255, 0);
+  strokeWeight(3);
+  ellipse(400, 220, 50, 60); 
+  
+  strokeWeight(2);
+  line(395, 190, 370, 150); 
+  line(405, 190, 430, 150); 
+
+  fill(255, 0, 0);
+  noStroke();
+  circle(370, 150, 10);  
+  circle(430, 150, 10); 
+
+  noFill();
+  stroke(0, 255, 0);
+  strokeWeight(3);
+ push();
+  translate(0, 25); 
+  beginShape();
+  curveVertex(370, 280);
+  curveVertex(380, 320);  
+  curveVertex(420, 320);  
+  curveVertex(430, 280);
+  endShape();
+pop();
+  
+  beginShape();
+  curveVertex(400, 250);  
+  curveVertex(385, 250);  
+  curveVertex(375, 295);  
+  curveVertex(380, 345);  
+  curveVertex(400, 345);  
+endShape();
+
+  push();
+  translate(30, 0);
+beginShape();
+  curveVertex(370, 250);  
+  curveVertex(385, 250); 
+  curveVertex(395, 295); 
+  curveVertex(390, 345); 
+  curveVertex(370, 345);  
+endShape();
+  pop();
+  
+  push();
+  translate(0, -50);
+  line(378, 320, 350, 360); 
+  line(422, 320, 450, 360); 
+  pop();
+  
+  line(390, 350, 375, 420);
+  line(410, 350, 425, 420);  
+  
+  
+}
+
+function mousePressed() {
+  if (mouseY > 0 && mouseY < 200) {
+    console.log("Mouse pressed in the specified range");
+    circle(random(255), random(255), random(255)); 
+  }}
+
