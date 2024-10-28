@@ -1,4 +1,5 @@
-ngle=0;
+let circles=[];
+let angle=0;
 let x = 0;
 let y = 0;
 let z=0;
@@ -8,7 +9,7 @@ let xOffset = 0;
 function setup() {
   
   let cnv=createCanvas(800,500);
-    cnv.parent("p5-canvas-container")
+   cnv.parent("p5-canvas-container")
   
   
   background(28, 28, 28);
