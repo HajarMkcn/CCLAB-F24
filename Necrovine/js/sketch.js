@@ -1,4 +1,4 @@
-let angle=0;
+ngle=0;
 let x = 0;
 let y = 0;
 let z=0;
@@ -8,7 +8,7 @@ let xOffset = 0;
 function setup() {
   
   let cnv=createCanvas(800,500);
-   cnv.parent("p5-canvas-container")
+    cnv.parent("p5-canvas-container")
   
   
   background(28, 28, 28);
@@ -105,15 +105,33 @@ let floatOffset = sin(angle) * 10;
   drawCreature(); 
   pop(); 
   
-//   let x = noise(xOffset) * width; 
-//   let y = noise(xOffset + 100) * height; // Using an offset to get a different y value
+  for (let i = circles.length - 1; i >= 0; i--) {
+    let c = circles[i];
+    fill(138, 43, 226); 
+    noStroke();
+    circle(c.x, c.y, 40);
 
-//   ellipse(x, y, 1, 1); // Draw an ellipse that moves smoothly
-  
-//   // Increment xOffset for new noise values
-//   xOffset += 0.002;
-  
-  
+    c.y = lerp(c.y, c.targetY, 0.025); 
+    c.x = lerp(c.x, c.targetX, 0.025);
+
+    if (dist(c.x, c.y, c.targetX, c.targetY) < 2) {
+      circles.splice(i, 1);
+    }
+  }
+
+  stroke(75, 78, 84);
+  strokeWeight(3);
+  for (let i = 0; i < 4; i++) {
+    let y1 = [80, 120, 430, 390];
+    let y2 = [200, 240, 370, 330];
+    line(0, y1[i], 275, y2[i]);
+  }
+  for (let i = 0; i < 4; i++) {
+    let y1 = [80, 120, 430, 390];
+    let y2 = [200, 240, 370, 330];
+    line(800, y1[i], 525, y2[i]);
+  }
+  drawVeins();
   
 }
 
@@ -178,7 +196,34 @@ endShape();
 
 function mousePressed() {
   if (mouseY > 0 && mouseY < 200) {
+    if (mouseX > 0 && mouseX < 400) {
     console.log("Mouse pressed in the specified range");
-    circle(random(255), random(255), random(255)); 
-  }}
+  
+    let leftY1 = [80, 120, 430, 390];
+    let leftY2 = [200, 240, 370, 330];
+    for (let i = 0; i < leftY1.length; i++) {
+      circles.push({ x: 0, y: 410, targetX: 275, targetY: 350 });
+    }}
+    else if (mouseX > 400 && mouseX < 800) {
 
+    let rightY1 = [80, 120, 430, 390];
+    let rightY2 = [200, 240, 370, 330];
+    for (let i = 0; i < rightY1.length; i++) {
+      circles.push({ x: 800, y: 100, targetX: 525, targetY: 220 });
+    }
+  }
+}}
+
+let noiseOffset = 0; 
+
+function drawVeins() {
+  
+//  let freq = frameCount * 0.015;
+//   let amp = 6-0;
+//   let noiseValue = noise(freq) * amp; 
+  
+//   let x = frameCount % width;
+//   let yNoise = height * 2/3 + noiseValue;
+ 
+//   circle(x, yNoise, 3, 3);
+}
