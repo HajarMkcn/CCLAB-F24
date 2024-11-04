@@ -20,7 +20,7 @@ function setup() {
 
 function draw() {
   background(0);
-  drawFloor(); // for reference only
+  drawFloor();
 
   dancer.update();
   dancer.display();
@@ -31,54 +31,35 @@ class ShadowDancer {
     this.x = startX;
     this.y = startY;
     this.color = '#2B0033';
-    this.size = 50;
     this.angle = 0;
-    this.pulse = 0;
-    this.move = 0;
-    this.trail = [];
   }
 
   update() {
     this.angle += 0.05;
-    this.pulse += 0.1;
-    this.size = 50 + sin(this.pulse) * 10;
-    this.move += 0.05;
-    this.x += sin(this.move) * 2;
-    this.trail.push({ x: this.x, y: this.y, size: this.size });
-    if (this.trail.length > 20) {
-      this.trail.shift();
-    }
   }
 
   display() {
     push();
-
-    for (let i = 0; i < this.trail.length; i++) {
-      let position = this.trail[i];
-      fill(43, 0, 51, 150 - i * 7);
-      noStroke();
-      ellipse(position.x, position.y, position.size - i);
-    }
-
     translate(this.x, this.y);
     rotate(this.angle);
     fill(this.color);
 
-    ellipse(0, 0, this.size, this.size);
+    let bounce = sin(this.angle * 1.5) * 30;
+    ellipse(0, 0 + bounce, 50, 50);
 
     fill('#400050');
-    ellipse(0, -this.size / 1.5, this.size / 2, this.size / 2);
+    ellipse(0, 33 + bounce, 25, 25);
+    ellipse(0, -33 + bounce, 25, 25);
 
     fill('#2B0033AA');
-    let shoulderOffset = sin(this.angle * 2) * 20;
-    ellipse(-this.size / 1.5, shoulderOffset, this.size / 4, this.size / 2);
-    ellipse(this.size / 1.5, -shoulderOffset, this.size / 4, this.size / 2);
+    let shoulders = sin(this.angle * 2) * 20;
+    ellipse(33, shoulders + bounce, 12, 25);
+    ellipse(33, -shoulders + bounce, 12, 25);
 
-    fill(255); 
-    let eyeSize = this.size / 8; 
-    ellipse(-this.size / 4, -this.size / 4, eyeSize, eyeSize); 
-    ellipse(this.size / 4, -this.size / 4, eyeSize, eyeSize);
-  
+    fill(255);
+    ellipse(12, -12 + bounce, 6, 6);
+    ellipse(12, 12 + bounce, 6, -6);
+
     pop();
   }
   drawReferenceShapes() {
