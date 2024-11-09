@@ -68,7 +68,7 @@ class Particle {
 
   }
   fade() {
-    this.dia -= 0.6;
+    this.dia -= 3;
     if (this.dia < 0) this.dia = 0;
   }
 
