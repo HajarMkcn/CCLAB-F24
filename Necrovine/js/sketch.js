@@ -5,17 +5,28 @@ let y = 0;
 let z=0;
 let w=0;
 let xOffset = 0;
+let circleBoxX=[40, 200, 360];
+let circleBoxY=[120, 240, 320];
+let rectWidth = 40;  
+let rectHeight = 40;
+let clicked1 = false;
+let clickCount1 = 0;
+let clicked2 = false;
+let clickCount2 = 0;
+let nx=0
 
 function setup() {
   
   let cnv=createCanvas(800,500);
-   cnv.parent("p5-canvas-container")
+    // cnv.parent("p5-canvas-container")
+
+}
+
+function draw() {
   
+  // console.log(mouseX, mouseY)
   
   background(28, 28, 28);
-
-  let rectWidth = 40;  
-  let rectHeight = 40;
   
   for (let y = 0; y < height / 3; y += rectHeight) { 
     for (let x = 0; x < width; x += rectWidth) {
@@ -24,8 +35,8 @@ function setup() {
       fill(152, 255, 152);
       rect(x + 5, y + 5, rectWidth - 10, rectHeight - 10); 
       fill(139, 0, 0);
-      rect(x + 10, y + 10, rectWidth - 20, rectHeight - 20); 
-
+      rect(x + 10, y + 10, rectWidth - 20, rectHeight - 20);
+      
       let randomNumber = random(0, 100);
       if (randomNumber < 65) {
         fill(138, 43, 226);
@@ -33,29 +44,7 @@ function setup() {
       }
     }
   }
-  noFill();
-  stroke(75, 78, 84);
-  strokeWeight(3);
-
-  beginShape();
-  vertex(100,100);
-  bezierVertex(260, 220, 540, 220, 780, 60);
-  endShape();
-
-  beginShape();
-  vertex(260, 60);
-  bezierVertex(360, 300, 580, 250, 740, 140);
-  endShape();
-
-  beginShape();
-  vertex(20, 180);
-  bezierVertex(160, 250, 240, 275, 380, 20);
-  endShape();
   
-  beginShape();
-  vertex(260, 140); 
-  bezierVertex(310, 230, 500, 220, 540, 100);
-  endShape();
 
   stroke(0, 100, 0);
   strokeWeight(5);
@@ -94,29 +83,10 @@ function setup() {
     vertex(xCoords[i], yCoords[i]);
   }
   endShape();
-}
-
-function draw() {
-console.log(mouseX,mouseY) 
   
-let floatOffset = sin(angle) * 10; 
-  angle += 0.05; 
-  push(); 
-  translate(0, floatOffset); 
-  drawCreature(); 
-  pop(); 
-  
-  for (let i = circles.length - 1; i >= 0; i--) {
-    let c = circles[i];
-    fill(138, 43, 226); 
-    noStroke();
-    circle(c.x, c.y, 40);
-
-    c.y = lerp(c.y, c.targetY, 0.025); 
-    c.x = lerp(c.x, c.targetX, 0.025);
-
-    if (dist(c.x, c.y, c.targetX, c.targetY) < 2) {
-      circles.splice(i, 1);
+  if (clicked1 == false) {
+    if (clicked2 == false) {
+      floatCreature(); // Runs only if both are false
     }
   }
 
@@ -132,7 +102,28 @@ let floatOffset = sin(angle) * 10;
     let y2 = [200, 240, 370, 330];
     line(800, y1[i], 525, y2[i]);
   }
-  drawVeins();
+  nx -= 0.5
+  let noise1=noise(nx)*80
+   if (clicked1 == true) {
+    fill(150, 255, 20)
+    quad(0, 390, 275, 330, 275, 370, 0, 430)
+    push()
+     translate(0, -50 + noise1)
+     drawCreature()
+     pop()
+   }
+  
+  if (clicked2 == true) {
+    fill(199, 21, 133)
+    quad(800, 80, 525, 200, 525, 240, 800, 120)
+    push();
+    translate(0, -50); 
+    translate(400,270)
+    scale(0.5);       
+    translate(-400, -270); 
+    drawCreature();    
+    pop();
+   }
   
 }
 
@@ -195,36 +186,33 @@ endShape();
   
 }
 
-function mousePressed() {
-  if (mouseY > 0 && mouseY < 200) {
-    if (mouseX > 0 && mouseX < 400) {
-    console.log("Mouse pressed in the specified range");
-  
-    let leftY1 = [80, 120, 430, 390];
-    let leftY2 = [200, 240, 370, 330];
-    for (let i = 0; i < leftY1.length; i++) {
-      circles.push({ x: 0, y: 410, targetX: 275, targetY: 350 });
-    }}
-    else if (mouseX > 400 && mouseX < 800) {
+function floatCreature(){
+  let floatOffset = sin(angle) * 10; 
+  angle += 0.05; 
+  push(); 
+  translate(0, floatOffset); 
+  drawCreature(); 
+  pop(); 
+}
 
-    let rightY1 = [80, 120, 430, 390];
-    let rightY2 = [200, 240, 370, 330];
-    for (let i = 0; i < rightY1.length; i++) {
-      circles.push({ x: 800, y: 100, targetX: 525, targetY: 220 });
-    }
+
+
+function mouseClicked() {
+  if (mouseY>275){
+  clickCount1 += 1;
+  if (clickCount1 % 2 == 1) {
+    clicked1 = true;
+  } else {
+    clicked1 = false;
   }
-}}
-
-let noiseOffset = 0; 
-
-function drawVeins() {
+}
   
-//  let freq = frameCount * 0.015;
-//   let amp = 6-0;
-//   let noiseValue = noise(freq) * amp; 
-  
-//   let x = frameCount % width;
-//   let yNoise = height * 2/3 + noiseValue;
- 
-//   circle(x, yNoise, 3, 3);
+  if (mouseY<275){
+  clickCount2 += 1;
+  if (clickCount2 % 2 == 1) {
+    clicked2 = true;
+  } else {
+    clicked2 = false;
+  }
+}
 }
