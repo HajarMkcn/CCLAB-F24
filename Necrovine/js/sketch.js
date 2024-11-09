@@ -86,7 +86,7 @@ function draw() {
   
   if (clicked1 == false) {
     if (clicked2 == false) {
-      floatCreature(); // Runs only if both are false
+      floatCreature(); 
     }
   }
 
