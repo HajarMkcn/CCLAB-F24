@@ -1,0 +1,39 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+canvas {
+  display: block;
+}
+
+h1 {
+  color: blueviolet font-family:sans-serif
+}
+
+p {
+  background-color: antiquewhite;
+}
+
+.box {
+  /* border-width: 1px;
+  border-style: solid;
+  border-color: black; */
+  border: 1px solid black;
+  margin: 10px;
+  padding: 10px;
+  background-color: aqua;
+}
+
+.box2 {
+  position: absolute;
+  left: 500px;
+  right: 0px;
+}
+
+.box3{
+  position: fixed;
+  left: 100px;
+  right: 0px;
+}
