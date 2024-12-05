@@ -1,0 +1,60 @@
+html,
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #0d0d40, #2a1b59);
+  color: white;
+  text-align: center;
+  height: 100%;
+  margin: 0;
+}
+
+canvas {
+  display: block;
+}
+
+.front {
+  text-align: center;
+
+  h1 {
+    font-style: italic;
+    font-size: 20px;
+    color: #b0b0ff;
+  }
+
+  h2 {
+    font-size: 48px;
+    text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
+  }
+
+  p {
+    margin: 20px auto;
+    padding: 10px;
+    width: 60%;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+  }
+
+  a {
+    color: #ffcc00;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+}
+
+.back {
+  a {
+    color: #ffcc00;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  #p5-canvas-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    /* Ensures it takes up full width for centering */
+    height: 100%;
+  }
+}

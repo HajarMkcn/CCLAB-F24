@@ -3,6 +3,10 @@ let star1
 let bgImage
 let moonImages = []
 let isPlanted = false;
+let isPressed = false;
+let circleX, circleY, circleRadius;
+let isDragging = false;
+let targetX, targetY
 
 function preload() {
   //assets/frame_00_delay-0.04s.png
@@ -20,6 +24,9 @@ function setup() {
   let canvas = createCanvas(500, 400);
   canvas.parent("p5-canvas-container");
   moon1 = new Moon()
+  circleX = width / 2;
+  circleY = height / 2;
+  circleRadius = 15;
 }
 
 function draw() {
@@ -28,11 +35,12 @@ function draw() {
   moon1.display()
   moon1.update()
   if (isPlanted && star1) {
-    star1.display()
-    star1.update()
+    star1.display();
+    if (isDragging) {
+      star1.growAndDrag(targetX, targetY);
+    }
   }
 }
-
 class Moon {
   constructor() {
     this.angle = 0
@@ -90,16 +98,12 @@ class Moon {
 
 }
 
-function mousePressed() {
-  star1 = new Star(mouseX, mouseY);
-  isPlanted = true;
-}
-
 class Star {
   constructor() {
     this.x = width / 2;
     this.y = height / 2;
     this.size = 5;
+    this.growthRate = 0.5;
   }
   update() {
 
@@ -111,5 +115,44 @@ class Star {
     ellipse(this.x, this.y, this.size, this.size);
     pop();
   }
+  growAndDrag(tx, ty) {
+    this.size += this.growthRate;
+    this.x = lerp(this.x, tx, 0.1);
+    this.y = lerp(this.y, ty, 0.1);
+  }
+
 }
+
+function mousePressed() {
+  let distance = dist(circleX, circleY, mouseX, mouseY);
+  if (distance < 50) {
+    star1 = new Star(mouseX, mouseY);
+    isPlanted = true;
+    isDragging = true
+
+  }
+}
+
+function checkMouse() {
+  let distance = dist(width / 2, height / 2, mouseX, mouseY);
+  if (distance < 100) {
+    if (isPlanted && star1) {
+      star1.display();
+      if (isDragging) {
+        star1.growAndDrag(targetX, targetY);
+      }
+    }
+  }
+}
+function mouseDragged() {
+  if (isDragging) {
+    targetX = mouseX;
+    targetY = mouseY;
+  }
+}
+
+function mouseReleased() {
+  isDragging = false;
+}
+
 
